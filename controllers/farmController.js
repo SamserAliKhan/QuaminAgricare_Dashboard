@@ -36,12 +36,27 @@ export const updateFarmDetails = async (req, res) => {
 
 // GET /api/farmers/:phoneNumber
 export const getFarmerByPhoneNumber = async (req, res) => {
-    const { phoneNumber } = req.params;
+    const {key,value} = req.params;
     try {
-        const farms = await Farm.find({ farmerPhoneNumber: phoneNumber });
-        if (farms.length === 0) return res.status(404).json({ message: "No farms found for this phone number" });
-        res.json(farms);
+      // Validate the input key and value
+      if (!key || !value) {
+        return res
+          .status(400)
+          .json({ success: false, message: "Key and value must be provided." });
+      }
+      //Dynamically query the database
+        const query = {};
+        query[key] = value;
+        const farms = await Farm.find(query);
+      // Check if the farmer exists
+      if (!farms||farms.length === 0)
+        return res
+          .status(404)
+          .json({ message: `No farms found for this ${key}=${value}` });
+      res.json(farms);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
+
+// DELETE /api/farm-details/:farmId

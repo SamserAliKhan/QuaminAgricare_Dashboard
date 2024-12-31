@@ -6,6 +6,6 @@ const router = express.Router();
 router.get('/farm-overview', getFarmOverview);
 router.post('/farm-details', addFarmDetails);
 router.put('/farm-details/:farmId', updateFarmDetails);
-router.get('/farmers/:phoneNumber', getFarmerByPhoneNumber);
+router.get('/farmers/:key/:value', getFarmerByPhoneNumber);
 
 export default router;
