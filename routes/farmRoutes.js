@@ -1,11 +1,18 @@
 import express from 'express';
-import { getFarmOverview, addFarmDetails, updateFarmDetails, getFarmerByPhoneNumber } from '../controllers/farmController.js';
+import {
+  getFarmOverview,
+  addFarmDetails,
+  updateFarmDetails,
+  getFarmerByPhoneNumber,
+  deleteFarm,
+} from "../controllers/farmController.js";
 
 const router = express.Router();
 
-router.get('/farm-overview', getFarmOverview);
-router.post('/farm-details', addFarmDetails);
-router.put('/farm-details/:farmId', updateFarmDetails);
-router.get('/farmers/:key/:value', getFarmerByPhoneNumber);
+router.get('/farmInfo', getFarmOverview);
+router.post('/addFarm', addFarmDetails);
+router.put('/farmUpdate/:farmId', updateFarmDetails);
+router.get('/farmerInfo/:key/:value', getFarmerByPhoneNumber);
+router.delete('/deleteFarm/:farmId', deleteFarm);
 
 export default router;

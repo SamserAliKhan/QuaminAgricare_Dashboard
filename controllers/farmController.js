@@ -60,3 +60,17 @@ export const getFarmerByPhoneNumber = async (req, res) => {
 };
 
 // DELETE /api/farm-details/:farmId
+export const deleteFarm = async (req, res) => {
+    const { farmId } = req.params;
+    try {
+        // Delete the farm
+        const deletedFarm = await Farm.findOneAndDelete({ farmId });
+
+        if (!deletedFarm) {
+            return res.status(404).json({ message: `No farm found with farmId=${farmId}` });
+        }
+        res.json({ message: `Farm is deleted successfully for farmId=${farmId}` });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
